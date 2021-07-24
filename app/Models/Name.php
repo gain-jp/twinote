@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Name extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'twinote_id',
-        'twitter_id'
+        'user_id',
+        'change_twitter_id',
+        'name'
     ];
+
 }

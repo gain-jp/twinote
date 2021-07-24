@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::get('/twinote_user/register', [TwinoteUserController::class, 'register']);
 Route::post('/twinote_user/register/send', [TwinoteUserController::class, 'send']);
 Route::get('/twinote_user/register/complete', [TwinoteUserController::class, 'complete']);
+Route::get('/twinote_user/login', function(){return View('login');});
+Route::post('/twinote_user/login', [TwinoteUserController::class, 'login']);
+Route::get('/twinote_user', [TwinoteUserController::class, 'mypage']);

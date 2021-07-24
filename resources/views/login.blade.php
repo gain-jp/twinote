@@ -7,7 +7,10 @@
 @include('layout.header')
 
 @section('content')
-<form action="register/send" method="post" class="mt-3 text-center">
+@isset($error)
+<p>{{$error}}</p>
+@endisset
+<form action="" method="post" class="mt-3 text-center">
     @csrf
     <div class="input-group mb-3">
         <span class="input-group-text">メールアドレス</span>

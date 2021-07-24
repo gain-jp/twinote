@@ -26,14 +26,15 @@ class TwinoteUserController extends Controller
 
         $old_registration = NewTwinoteUser::where('email', $email)->first();
         if($old_registration){
-            $old_registration->delete();
+            $old_registration->where('email', $email)
+            ->update(['password' => $password_hash, 'token' => $token]);
+        }else{
+            $new_twinote_user = NewTwinoteUser::create([
+                'email' => $email,
+                'password' => $password_hash,
+                'token' => $token
+            ]);
         }
-
-        $new_twinote_user = NewTwinoteUser::create([
-            'email' => $email,
-            'password' => $password_hash,
-            'token' => $token
-        ]);
 
         $URL = config('app.url').'/twinote_user/register/complete?token='.$token;
 
@@ -71,5 +72,31 @@ class TwinoteUserController extends Controller
         $new_twinote_user->delete();
 
         return View('complete');
+    }
+
+    public function login(Request $request){
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        $twinote_user = TwinoteUser::where('email', $email)->first();
+        if(password_verify($password, $twinote_user->password)){
+            $request->session()->put('email', $twinote_user->email);
+            return redirect('/twinote_user');
+        }else{
+            return View('login')->with('error', 'メールアドレス又はパスワードが違います。');
+        }
+    }
+
+    public function mypage(Request $request){
+        if(!$request->session()->exists('email')){
+            return redirect('/twinote_user/login');
+        }
+
+        $email = $request->session()->get('email');
+        $twinote_user = TwinoteUser::where('email', $email)->first();
+        if(!$twinote_user){
+            return 'Error: ユーザーが見つかりません。';
+        }
+        return View('mypage')->with('token', $twinote_user->token);
     }
 }
