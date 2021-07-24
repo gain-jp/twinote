@@ -41,7 +41,7 @@ class TwinoteUserController extends Controller
         Mail::send('emails.user_register',
                    ['URL' => $URL],
                    function($message){
-                       $message->to('test@localhost')
+                       $message->to($email)
                        ->subject('仮登録完了 - Twinote');
                    });
         return View('send');
@@ -82,7 +82,7 @@ class TwinoteUserController extends Controller
         if(!$twinote_user){
             return View('login')->with('error', 'メールアドレス又はパスワードが違います。');
         }
-        
+
         if(password_verify($password, $twinote_user->password)){
             $request->session()->put('email', $twinote_user->email);
             return redirect('/twinote_user');
