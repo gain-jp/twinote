@@ -26,7 +26,7 @@ Route::get('/name/{twitter_id}/{change_twitter_id}', [NameController::class, 'ge
 Route::post('/memo/{twitter_id}/edit', [MemoController::class, 'edit']);
 Route::get('/memo/{twitter_id}', [MemoController::class, 'get']);
 */
-Route::match(['get', 'options'], '/name/{twitter_id}/{change_twitter_id}/edit', [NameController::class, 'edit']);
+Route::match(['post', 'options'], '/name/{twitter_id}/{change_twitter_id}/edit', [NameController::class, 'edit']);
 Route::match(['get', 'options'], '/name/{twitter_id}/{change_twitter_id}', [NameController::class, 'get']);
-Route::match(['get', 'options'], '/memo/{twitter_id}/edit', [MemoController::class, 'edit']);
+Route::match(['post', 'options'], '/memo/{twitter_id}/edit', [MemoController::class, 'edit']);
 Route::match(['get', 'options'], '/memo/{twitter_id}', [MemoController::class, 'get']);
