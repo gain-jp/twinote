@@ -20,13 +20,13 @@ use App\Http\Controllers\NameController;
     return $request->user();
 });
 */
-/*Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('/login', function (Request $request) {
-    return view('welcome');
-})->name('login');*/
+/*
 Route::post('/name/{twitter_id}/{change_twitter_id}/edit', [NameController::class, 'edit']);
 Route::get('/name/{twitter_id}/{change_twitter_id}', [NameController::class, 'get']);
 Route::post('/memo/{twitter_id}/edit', [MemoController::class, 'edit']);
 Route::get('/memo/{twitter_id}', [MemoController::class, 'get']);
+*/
+Route::match(['get', 'options'], '/name/{twitter_id}/{change_twitter_id}/edit', [NameController::class, 'edit']);
+Route::match(['get', 'options'], '/name/{twitter_id}/{change_twitter_id}', [NameController::class, 'get']);
+Route::match(['get', 'options'], '/memo/{twitter_id}/edit', [MemoController::class, 'edit']);
+Route::match(['get', 'options'], '/memo/{twitter_id}', [MemoController::class, 'get']);
