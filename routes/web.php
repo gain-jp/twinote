@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TwinoteUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/twinote_user/register', [TwinoteUserController::class, 'register']);
+Route::post('/twinote_user/register/send', [TwinoteUserController::class, 'send']);
+Route::get('/twinote_user/register/complete', [TwinoteUserController::class, 'complete']);
