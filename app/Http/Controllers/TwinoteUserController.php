@@ -79,6 +79,10 @@ class TwinoteUserController extends Controller
         $password = $request->input('password');
 
         $twinote_user = TwinoteUser::where('email', $email)->first();
+        if(!$twinote_user){
+            return View('login')->with('error', 'メールアドレス又はパスワードが違います。');
+        }
+        
         if(password_verify($password, $twinote_user->password)){
             $request->session()->put('email', $twinote_user->email);
             return redirect('/twinote_user');
