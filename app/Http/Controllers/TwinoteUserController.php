@@ -42,7 +42,7 @@ class TwinoteUserController extends Controller
                    ['URL' => $URL],
                    function($message){
                        $message->to('test@localhost')
-                       ->subject('仮登録完了 - ツイノート');
+                       ->subject('仮登録完了 - Twinote');
                    });
         return View('send');
     }
