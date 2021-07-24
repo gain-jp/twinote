@@ -12,7 +12,7 @@ class TwinoteUserController extends Controller
     public function register(){
         return View('register');
     }
-
+    public $email = 'test@localhost';
     public function send(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');
@@ -40,10 +40,11 @@ class TwinoteUserController extends Controller
 
         Mail::send('emails.user_register',
                    ['URL' => $URL],
-                   function($message){
+                   function($message) use ($email){
                        $message->to($email)
                        ->subject('仮登録完了 - Twinote');
                    });
+
         return View('send');
     }
 
