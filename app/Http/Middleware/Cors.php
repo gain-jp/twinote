@@ -20,7 +20,7 @@ class Cors
 
         $http_origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : "";
 
-        Log::debug("http_origin = " . $http_origin);
+        //Log::debug("http_origin = " . $http_origin);
         if ($http_origin == "https://twitter.com/") {
             $response
                 ->header("Access-Control-Allow-Origin" , $http_origin)
