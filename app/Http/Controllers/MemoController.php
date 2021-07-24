@@ -13,6 +13,8 @@ class MemoController extends Controller
         $token = $request->header('token');
         $twitter_id = $request->route('twitter_id');
         $memo = $request->input('memo');
+        $memo_twitter_id = $request->route('memo_twitter_id');
+        
 
         $twinote_user = TwinoteUser::where('token', $token)->first();
         if(!$twinote_user){
@@ -26,16 +28,17 @@ class MemoController extends Controller
                 'twitter_id' => $twitter_id
             ]);
         }
-        $old_memo = Memo::where('user_id', $user->id)->first();
+        $old_memo = Memo::where('user_id', $user->id)->where('memo_twitter_id', $memo_twitter_id)->first();
+        
         if($old_memo){
-            $memo = Memo::where('user_id', $user->id)->first()
-            ->update([
-                'memo' => $memo
-            ]);
+            $memo = Memo::where('user_id', $user->id)->
+            where('memo_twitter_id', $memo_twitter_id)->first()
+            ->update(['memo' => $memo]);
         }else{
             $memo = Memo::create([
                 'user_id' => $user->id,
-                'memo' => $memo
+                'memo' => $memo,
+                'memo_twitter_id' => $memo_twitter_id
             ]);
         }
         
@@ -45,6 +48,7 @@ class MemoController extends Controller
     public function get(Request $request){
         $token = $request->header('token');
         $twitter_id = $request->route('twitter_id');
+        $memo_twitter_id = $request->route('memo_twitter_id');
 
         $twinote_user = TwinoteUser::where('token', $token)->first();
         if(!$twinote_user){
@@ -58,7 +62,7 @@ class MemoController extends Controller
                 'twitter_id' => $twitter_id
             ]);
         }
-        $memo = Memo::where('user_id', $user->id)->first();
+        $memo = Memo::where('user_id', $user->id)->where('memo_twitter_id', $memo_twitter_id)->first();
         if($memo){
             return response()->json(['error' => 0, 'memo' => $memo->memo]);
         }else{

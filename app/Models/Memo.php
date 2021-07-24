@@ -11,7 +11,8 @@ class Memo extends Model
 
     protected $fillable = [
         'user_id',
-        'memo'
+        'memo',
+        'memo_twitter_id'
     ];
 
 }

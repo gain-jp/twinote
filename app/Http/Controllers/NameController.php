@@ -27,10 +27,10 @@ class NameController extends Controller
                 'twitter_id' => $twitter_id
             ]);
         }
-        $old_memo = Name::where('user_id', $user->id)->first();
+        $old_memo = Name::where('user_id', $user->id)->where('change_twitter_id', $change_twitter_id)->first();
         if($old_memo){
-            $memo = Name::where('user_id', $user->id)->first()
-            ->where('change_twitter_id', $change_twitter_id)
+            $memo = Name::where('user_id', $user->id)
+            ->where('change_twitter_id', $change_twitter_id)->first()
             ->update(['name' => $name]);
         }else{
             $memo = Name::create([
