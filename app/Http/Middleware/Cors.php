@@ -26,6 +26,6 @@ class Cors
                 ->header("Access-Control-Allow-Origin" , $http_origin)
                 ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         }
-        return $next($request);
+        return $response;
     }
 }
