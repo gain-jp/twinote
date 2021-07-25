@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MemoController;
 use App\Http\Controllers\NameController;
+use App\Http\Controllers\AIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,4 @@ Route::match(['post', 'options'], '/name/{twitter_id}/{change_twitter_id}/edit',
 Route::match(['get', 'options'], '/name/{twitter_id}/{change_twitter_id}', [NameController::class, 'get']);
 Route::match(['post', 'options'], '/memo/{twitter_id}/{memo_twitter_id}/edit', [MemoController::class, 'edit']);
 Route::match(['get', 'options'], '/memo/{twitter_id}/{memo_twitter_id}', [MemoController::class, 'get']);
+Route::match(['get', 'options'], '/ai', [AIController::class, 'get']);

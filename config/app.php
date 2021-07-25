@@ -230,5 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    'ai_address' => env('APP_AI_ADDRESS', '127.0.0.1'),
+    'ai_port' => env('APP_AI_PORT', '1234'),
 
 ];
