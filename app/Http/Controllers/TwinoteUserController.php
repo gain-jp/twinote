@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NewTwinoteUser;
 use App\Models\TwinoteUser;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\Registered;
 
 class TwinoteUserController extends Controller
 {
@@ -16,6 +17,12 @@ class TwinoteUserController extends Controller
     public function send(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');
+        if(empty($email)){
+            return 'Error: メールアドレスを正しく入力してください。';
+        }
+        if(empty($password)){
+            return 'Error: パスワードを正しく入力してください。';
+        }
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
         $token = bin2hex(openssl_random_pseudo_bytes(32));
         
@@ -38,13 +45,16 @@ class TwinoteUserController extends Controller
 
         $URL = config('app.url').'/twinote_user/register/complete?token='.$token;
 
+        /*
         Mail::send('emails.user_register',
                    ['URL' => $URL],
                    function($message) use ($email){
                        $message->to($email)
                        ->subject('仮登録完了 - Twinote');
                    });
-
+        */
+        Mail::to($email)->send(new Registered($URL));
+        
         return View('send');
     }
 
